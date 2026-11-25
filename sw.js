@@ -15,7 +15,7 @@ self.addEventListener("install", (event) => {
     )
 });
 
-self.addEventListener("fetfh", (event) => {
+self.addEventListener("fetfch", (event) => {
     if (event.request.method !== "GET") {
         return;
     }
@@ -27,6 +27,21 @@ self.addEventListener("fetfh", (event) => {
             }
 
             return fetch(event.request)
+        })
+    );
+});
+
+self.addEventListener("activate", (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames
+                    .filter((name) =>
+                        name.startsWith("level-cache-") &&
+                    name !==CACHE_NAME
+                )
+                .map((name) => caches.delete(name))
+            );
         })
     );
 });
