@@ -6,7 +6,7 @@ const levelStatus = document.getElementById("levelStatus");
 startButton.addEventListener("click", startSensor);
 async function startSensor() {
     try {
-        // Device Orientation APIが利用可能か確認
+
         if (typeof DeviceOrientationEvent === "undefined") {
             statusText.textContent = "センサーAPIを利用できません";
             return;
@@ -48,20 +48,19 @@ function showOrientation(event) {
         beta.toFixed(1) + "°";
     document.getElementById("gamma").textContent =
         gamma.toFixed(1) + "°";
-    // 傾き角度を移動距離に変換
+
     let x = gamma * 2;
     let y = beta * 2;
-    // 円形の移動範囲に制限
+    
     const distance = Math.sqrt(x * x + y * y);
     const maxDistance = 100;
     if (distance > maxDistance) {
         x = x * maxDistance / distance;
         y = y * maxDistance / distance;
     }
-    // 円の表示位置を更新
     bubble.style.transform =
         `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-    // 水平状態の判定
+
     const isLevel =
         Math.abs(beta) <= 3 && Math.abs(gamma) <= 3;
     if (isLevel) {
