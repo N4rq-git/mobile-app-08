@@ -1,5 +1,7 @@
 const startButton = document.getElementById("startButton");
 const statusText = document.getElementById("status");
+const x = Math.max(-100, Math.min(100, gamma * 2));
+const y = Math.max(-100, Math.min(100, betta * 2));
 
 startButton.addEventListener("click", startSensor);
 async function startSensor() {
